@@ -1,0 +1,48 @@
+{{!< layout}}
+
+<div class="container">
+    <h1>ClassRoom Manager</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Total Students</th>
+                <th scope="col">Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each classrooms}}
+            <tr>
+                <th scope="row">{{this.id}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.students.length}}</td>
+                <td>
+                    <button type="button" class="btn btn-info">List Student</button>
+                    <button type="button" class="btn btn-success">EDIT</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteClassroom({{id}})">DELETE</button>
+                </td>
+            </tr>     
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const hostname = window.location.host;
+    function deleteClassroom(id) {
+        $.ajax({
+            url: `http://localhost:3000/classrooms/${id}`,
+            type: 'DELETE',
+            success: function(data, textStatus, xhr) {
+                console.log('Request is success', data);
+            },
+            error: function(xhr, textStatus, errorMessage) {
+                console.error('Request is error', errorMessage);
+            }
+        });
+    }
+    function createClassroom() {
+        
+    }
+</script>
